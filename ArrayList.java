@@ -6,33 +6,33 @@ import java.util.ListIterator;
     Generic class to impelment an array based list
  */
 public class ArrayList<E> implements List<E>, Cloneable{
-   // data member: array for the list elements
-   private E[] elements;
-   // data member: size of the list
-   private int size;
-   /**
+    // data member: array for the list elements
+    private E[] elements;
+    // data member: size of the list
+    private int size;
+    /**
     * Default constructor creates the array with a default length of 10 and sets size to 0
     */
-   public ArrayList() {
-	   elements = (E[]) new Object[10];
-	   size = 0;
-   }
-   /**
+    public ArrayList() {
+        elements = (E[]) new Object[10];
+        size = 0;
+    }
+    /**
     * Constructor with one parameter creates the array with length equal to capacity and sets size to 0
     * @param capacity initial capacity of the array elements
     */
-   public ArrayList(int capacity) {
-     elements = (E[]) new Object[capacity];
-     size = 0;
-   }
-   /**
+    public ArrayList(int capacity) {
+        elements = (E[]) new Object[capacity];
+        size = 0;
+    }
+    /**
      * Method to add an new element to this list
      * @param item the value to add
      * @return true if this list changed as a result of the call
      */
     public boolean add(E item) {
-		  add(size, item);
-      return true;
+        add(size, item);
+        return true;
     }
     /**
      * Method to add an element at a given index
@@ -41,14 +41,14 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @throws IndexOutOfBoundsException if index is negative or greater than this list's size
      */
     public void add(int index, E item){
-      if(index > size || index < 0)
-        throw new ArrayIndexOutOfBoundsException();
-      ensureCapacity();
-      for(int i=size-1; i>=index; i--){
-        elements[i+1] = elements[i];
-      }
-      elements[index] = item;
-      size++;
+        if(index > size || index < 0)
+            throw new ArrayIndexOutOfBoundsException();
+        ensureCapacity();
+        for(int i=size-1; i>=index; i--){
+            elements[i+1] = elements[i];
+        }
+        elements[index] = item;
+        size++;
     }
     /**
      * Method to add a collection to this list
@@ -56,8 +56,8 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @return true if this list changed as a result of the call
      */
     public boolean addAll(Collection<? extends E> c){
-      // Not implemented
-      return true;
+        // Not implemented
+        return true;
     }
 
     /**
@@ -82,16 +82,16 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @throws ArrayIndexOutOFBoundsException is index is out of bounds
      */
     private void checkIndex(int index){
-		  if(index < 0 || index >= size)
-			    throw new ArrayIndexOutOfBoundsException(
-              "Index out of bounds. Must be between 0 and "+(size-1));
+        if(index < 0 || index >= size)
+            throw new ArrayIndexOutOfBoundsException(
+            "Index out of bounds. Must be between 0 and "+(size-1));
     }
 
     /**
      * Method to clear this list
      */
     public void clear() {
-      size = 0; 
+        size = 0; 
     }
 
     /**
@@ -109,14 +109,14 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @return true if this list contains the given object
      */
     public boolean contains(Object o){
-      Iterator<E> iter = iterator();
-      while(iter.hasNext()){
-        E element = iter.next();
-        if(element.equals(o)){
-          return true;
+        Iterator<E> iter = iterator();
+        while(iter.hasNext()){
+            E element = iter.next();
+            if(element.equals(o)){
+                return true;
+            }
         }
-      }
-      return false;
+        return false;
     }
 
     /**
@@ -125,8 +125,8 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @return true if this list contains all of the elements in the given collection
      */
     public boolean containsAll(Collection<?> c){
-      // Not implemented
-      return true;
+        // Not implemented
+        return true;
     }
 
     /**
@@ -134,12 +134,12 @@ public class ArrayList<E> implements List<E>, Cloneable{
      */
     private void ensureCapacity() {
 	    if(size >= elements.length) {
-          int newCap = (int) (elements.length * 1.5);
-		      E[] newElements = (E[]) new Object[newCap];
-		      for(int i=0; i<size; i++){
-				    newElements[i] = elements[i];
-          }
-		      elements = newElements;
+            int newCap = (int) (elements.length * 1.5);
+            E[] newElements = (E[]) new Object[newCap];
+            for(int i=0; i<size; i++){
+                newElements[i] = elements[i];
+            }
+            elements = newElements;
 	    }
     }
 
@@ -160,18 +160,18 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @throws IndexOutOfBoundsException if index is out of bounds (index < 0 || index >= size())
      */
     public E get(int index) {
-		  checkIndex(index);
-		  return elements[index];
+        checkIndex(index);
+        return elements[index];
     }
 
-   /**
+    /**
      * Method to get the first element of this list
      * @return the value of the first element in this list
      * @throws NoSuchElementException if this list is empty
      */
     public E getFirst() {
-		  // Not implmented
-      return null;
+		// Not implmented
+        return null;
     }
 
     /**
@@ -180,8 +180,8 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @throws NoSuchElementException if this list is empty
      */
     public E getLast() {
-		  // Not implemented
-		  return null;
+        // Not implemented
+        return null;
     }
 
     /**
@@ -201,7 +201,7 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @return true if this list is empty
      */
     public boolean isEmpty() {
-      return (size == 0);
+        return (size == 0);
     }
 
     /**
@@ -209,7 +209,7 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @return an iterator over the elements starting at the beginning of this list 
      */
     public Iterator<E> iterator(){
-		  return new ArrayIterator();
+		return new ArrayIterator();
     }
 
     /**
@@ -250,13 +250,13 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @throws IndexOutOfBoundsException is the index is out of bounds (index < 0 || index >= size)
      */
     public E remove(int index) {
-      checkIndex(index);
-      E value = elements[index];
-      for(int i=index; i<size-1; i++){
-			  elements[i] = elements[i+1];
-      }
-      size--;
-      return value;
+        checkIndex(index);
+        E value = elements[index];
+        for(int i=index; i<size-1; i++){
+            elements[i] = elements[i+1];
+        }
+        size--;
+        return value;
     }
 
     /**
@@ -265,13 +265,13 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @return true if o was found and removed
      */
     public boolean remove(Object o){
-      for(int i=0; i<size; i++){
-        if(elements[i].equals(o)){
-          remove(i);
-          return true;
+        for(int i=0; i<size; i++){
+            if(elements[i].equals(o)){
+                remove(i);
+                return true;
+            }
         }
-      }
-      return false;
+        return false;
     }
 
     /**
@@ -318,8 +318,8 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @return a reversed-ordered copy of this list
      */
     public List<E> reversed(){
-      // Not implemented
-      return null;
+        // Not implemented
+        return null;
     }
 
     /**
@@ -331,10 +331,10 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @throws NullPointerException if the given element is null
      */
     public E set(int index, E element) {
-		  checkIndex(index);
-		  E oldValue = elements[index];
-		  elements[index] = element;
-		  return oldValue;
+        checkIndex(index);
+        E oldValue = elements[index];
+        elements[index] = element;
+        return oldValue;
     }
 
     /**
@@ -342,7 +342,7 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @return number of elements in this list
      */
     public int size() {
-      return size; 
+        return size; 
     }
     
     /**
@@ -364,8 +364,8 @@ public class ArrayList<E> implements List<E>, Cloneable{
      *         (from < 0 || to > size || from > to)
      */
     public List<E> subList(int from, int to){
-      // Not implemented
-      return null;
+        // Not implemented
+        return null;
     }
 
     /**
@@ -382,25 +382,25 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @return a formatted string containing all the elements of the list
      */
     public String toString() {
-      if(size == 0)
-        return "[]";
-		  String output = "[";
-		  for(int i=0; i<size-1; i++)
-			    output += elements[i] + " ";
-		  output += elements[size-1] + "]";
-		  return output;
+        if(size == 0)
+            return "[]";
+        String output = "[";
+        for(int i=0; i<size-1; i++)
+            output += elements[i] + " ";
+        output += elements[size-1] + "]";
+        return output;
     }
 
     /**
      * Method to resize the list capacity the actual size of the list
      */
     public void trimToSize() {
-		  if (size != elements.length) {
-			    E[] newElements = (E[]) new Object[size];
-			    for(int i=0; i<size; i++)
-				    newElements[i] = elements[i];
-			    elements = newElements;
-		  }
+        if (size != elements.length) {
+            E[] newElements = (E[]) new Object[size];
+            for(int i=0; i<size; i++)
+                newElements[i] = elements[i];
+            elements = newElements;
+        }
     }
     
 
@@ -408,21 +408,21 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * Inner class to implement the interface Iterator<E>  *
      *******************************************************/
     private class ArrayIterator implements Iterator<E>{
-      // data member current: the index of the element at which the iterator is pointing
-	    private int current = 0;
-      /**
+        // data member current: the index of the element at which the iterator is pointing
+        private int current = 0;
+        /**
         @return true if current did not reach the end of the list, false otherwise
-       */
+        */
 	    public boolean hasNext() {
             return current < size; 
-      }
-      /**
-        @return the value of the current element and moves the index current to the next element
-        @throws NoSuchElementException if current is out of bounds
-      */
+        }
+        /**
+            @return the value of the current element and moves the index current to the next element
+            @throws NoSuchElementException if current is out of bounds
+        */
 	    public E next() {
             if(current < 0 || current >= size)
-              throw new NoSuchElementException("No more elements");
+                throw new NoSuchElementException("No more elements");
             return elements[current++]; 
         }
     } 
@@ -493,6 +493,4 @@ public class ArrayList<E> implements List<E>, Cloneable{
             throw new UnsupportedOperationException();
         }
     }
-    
-    
 }

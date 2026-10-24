@@ -24,7 +24,7 @@ public class LinkedList<E> implements List<E>, Cloneable{
     /**
      * Default Constructor
      * creates an empty linkedlist
-    */
+     */
     public LinkedList() {
         head = tail = null;
         size = 0;
@@ -155,8 +155,8 @@ public class LinkedList<E> implements List<E>, Cloneable{
      * @return true if this list contains all of the elements in the given collection
      */
     public boolean containsAll(Collection<?> c){
-      // Not implemented
-      return true;
+        // Not implemented
+        return true;
     }
 
     /**
