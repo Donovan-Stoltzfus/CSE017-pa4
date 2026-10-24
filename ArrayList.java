@@ -134,7 +134,13 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @return true if this list contains all of the elements in the given collection
      */
     public boolean containsAll(Collection<?> c){
-        // Not implemented
+        Iterator iter = c.iterator();
+        while (iter.hasNext()) {
+            E element = (E) iter.next();
+            if (!this.contains(element)) {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -158,7 +164,14 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @return true if this list is equal to the given object, false otherwise
      */
     public boolean equals(Object o){
-        // Not implemented
+        if (o instanceof ArrayList) {
+            for (int i = 0; i < size; i++) {
+                if (!((ArrayList) o).get(i).equals(this.get(i))) {
+                    return false;
+                }
+            }
+            return true;
+        }
         return false;
     }
 
@@ -179,8 +192,7 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @throws NoSuchElementException if this list is empty
      */
     public E getFirst() {
-		// Not implmented
-        return null;
+		return get(0);
     }
 
     /**
@@ -189,8 +201,7 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @throws NoSuchElementException if this list is empty
      */
     public E getLast() {
-        // Not implemented
-        return null;
+        return get(size-1);
     }
 
     /**
@@ -201,7 +212,11 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @throws NullPointerException if the given object is null
      */
     public int indexOf(Object o){
-        // Not implemented
+        for (int i = 0; i < size; i++) {
+            if (this.get(i).equals(o)) {
+                return i;
+            }
+        }
         return -1;
     }
 
@@ -229,7 +244,11 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @throws NullPointerException if the given object is null
      */
     public int lastIndexOf(Object o){
-        // Not implemented
+        for (int i = size-1; i >= 0; i--) {
+            if (this.get(i).equals(o)) {
+                return i;
+            }
+        }
         return -1;
     }
 
@@ -289,8 +308,16 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @return true if this list changed as a result of the call
      */
     public boolean removeAll(Collection<?> c){
-        // Not implemented
-        return true;
+        boolean listChanged = false;
+        Iterator iter = c.iterator();
+        while (iter.hasNext()) {
+            E element = (E) iter.next();
+            if (this.contains(element)) {
+                this.remove(element);
+                listChanged = true;
+            }
+        }
+        return listChanged;
     }
 
     /**
@@ -299,8 +326,7 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @throws NoSuchElementException if this list is empty
      */
     public E removeFirst(){
-        // Not implemented
-        return null;
+        return remove(0);
     }
     /**
      * Method to remove the last element of this list
@@ -308,8 +334,7 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @throws NoSuchElementException if this list is empty
      */
     public E removeLast(){
-        // Not implemented
-        return null;
+        return remove(size-1);
     }
 
     /**
@@ -318,8 +343,22 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @return true if this list changed as a result of the call
      */
     public boolean retainAll(Collection<?> c){
-        // Not implemented
-        return true;
+        boolean isChanged = false;
+        for (int i = size-1; i >= 0; i--) {
+            Iterator iter = c.iterator();
+            boolean shouldRemove = true;
+            while (iter.hasNext()) {
+                if (iter.next() == this.get(i)) {
+                    shouldRemove = false;
+                    break;
+                }
+            }
+            if (shouldRemove) {
+                this.remove(i);
+                isChanged = true;
+            }
+        }
+        return isChanged;
     }
 
     /**
@@ -327,8 +366,11 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @return a reversed-ordered copy of this list
      */
     public List<E> reversed(){
-        // Not implemented
-        return null;
+        ArrayList<E> newList = new ArrayList(size);
+        for (int i = size-1; i >= 0; i--) {
+            newList.add(this.get(i));
+        }
+        return newList;
     }
 
     /**
@@ -440,51 +482,59 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * Inner class to implement the interface ListIterator for the class ArrayList *
      *******************************************************************************/
     private class ArrayListIterator implements ListIterator<E>{
+        
         private int current;
         /**
          * Default constructor
          */
         public ArrayListIterator(){
-            // Not implemented
+            current = 0;
         }
         /**
          * Constructor to initialize current to index
          * @param index the position where the iterator starts
          */
         public ArrayListIterator(int index){
-            // Not implemented
+            if (index < 0) 
+                throw new ArrayIndexOutOfBoundsException("Must insert valid index");
+            current = index;
         }
         /**
          * checks if the iterator has a next element in the list
          * @return true if the end of the list is not reached
          */
         public boolean hasNext(){
-            // Not implemented
-            return false;
+            return current < size;
         }
         /**
          * get the next element
          * @return the value of the next element pointed to by the iterator
          */
         public E next(){
-            // Not implemented
-            return null;
+            if (current >= size) {
+                throw new ArrayIndexOutOfBoundsException("No more elements");
+            }
+            return elements[current++];
         }
         /**
          * checks if the iterator has a previous element in the list
          * @return true if the beginning of the list is not reached
          */
         public boolean hasPrevious(){
-            // Not implemented
-            return false;
+            int lastIndex = current - 1;
+            return lastIndex >= 0;
         }
         /**
          * get the previous element
          * @return the value of the element element pointed to by the iterator
          */
         public E previous(){
-            // Not implemented
-            return null;
+            int lastIndex = current - 1;
+            if (lastIndex >= 0) {
+                current--;
+                return get(lastIndex);
+            }
+            throw new ArrayIndexOutOfBoundsException("No previous element");
         }
         public void add(E e){
             throw new UnsupportedOperationException();
