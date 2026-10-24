@@ -56,8 +56,14 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @return true if this list changed as a result of the call
      */
     public boolean addAll(Collection<? extends E> c){
-        // Not implemented
-        return true;
+        Iterator iter = c.iterator();
+        boolean isChanged = false;
+        while (iter.hasNext()) {
+            E nextElement = (E) iter.next();
+            this.add(nextElement);
+            isChanged = true;
+        }
+        return isChanged;
     }
 
     /**
@@ -65,7 +71,7 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @param e element to be added
      */
     public void addFirst(E e){
-        // Not implemented
+        add(0, e);
     }
     
     /**
@@ -73,7 +79,7 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @param e to be added
      */
     public void addLast(E e){
-        // Not implemented
+        add(size, e);
     }
 
     /**
@@ -99,8 +105,11 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @return a deep copy of this list
      */
     public Object clone(){
-        // Not implemented
-        return null;
+        ArrayList<E> newArrayList = new ArrayList(size);
+        for (int i = 0; i < size; i++) {
+            newArrayList.add(this.get(i));
+        }
+        return newArrayList;
     }
 
     /**
