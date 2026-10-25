@@ -484,46 +484,60 @@ public class LinkedList<E> implements List<E>, Cloneable{
          * Default constructor
          */
         public LinkedListListIterator(){
-            // Not implemented
+            current = head;
+            previous = null;
         }
         /**
          * Constructor to initialize current to be the node at position index
          * @param index the position where the iterator starts
          */
         public LinkedListListIterator(int index){
-            // Not implemented
+            if (index < 0 || index >= size)
+                throw new ArrayIndexOutOfBoundsException("Must insert valid index");
+            current = head;
+            previous = null;
+            for (int i = 0; i < index; i++) {
+                previous = current;
+                current = current.next;
+            }
         }
         /**
          * checks if the iterator has a next element in the list
          * @return true if the end of the list is not reached
          */
         public boolean hasNext() {
-            // Not implemented
-            return false;
+            return current != null;
         }
         /**
          * get the next element
          * @return the value of the next element pointed to by the iterator
          */
         public E next() {
-            // Not implemented
-            return null;
+            if (current == null) {
+                throw new ArrayIndexOutOfBoundsException("No more elements");
+            }
+            previous = current;
+            current = current.next;
+            return current.value;
         }
         /**
          * checks if the iterator has a previous element in the list
          * @return true if the beginning of the list is not reached
          */
         public boolean hasPrevious() {
-            // Not implemented
-            return false;
+            return previous != null;
         }
         /**
          * get the previous element
          * @return the value of the element element pointed to by the iterator
          */
         public E previous() {
-            // Not implemented
-            return null;
+            if (previous == null) {
+                throw new ArrayIndexOutOfBoundsException("No more elements");
+            }
+            current = previous;
+            previous = previous.previous;
+            return current.value;
         }
         public void add(E e){
             throw new UnsupportedOperationException();
