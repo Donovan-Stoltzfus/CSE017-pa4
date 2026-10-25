@@ -57,13 +57,13 @@ public class ArrayList<E> implements List<E>, Cloneable{
      */
     public boolean addAll(Collection<? extends E> c){
         Iterator iter = c.iterator();
-        boolean isChanged = false;
+        boolean listChanged = false;
         while (iter.hasNext()) {
             E nextElement = (E) iter.next();
             add(nextElement);
-            isChanged = true;
+            listChanged = true;
         }
-        return isChanged;
+        return listChanged;
     }
 
     /**
@@ -352,7 +352,7 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @return true if this list changed as a result of the call
      */
     public boolean retainAll(Collection<?> c){
-        boolean isChanged = false;
+        boolean listChanged = false;
         for (int i = size-1; i >= 0; i--) {
             Iterator iter = c.iterator();
             boolean shouldRemove = true;
@@ -364,10 +364,10 @@ public class ArrayList<E> implements List<E>, Cloneable{
             }
             if (shouldRemove) {
                 remove(i);
-                isChanged = true;
+                listChanged = true;
             }
         }
-        return isChanged;
+        return listChanged;
     }
 
     /**
