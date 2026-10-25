@@ -402,7 +402,23 @@ public class ArrayList<E> implements List<E>, Cloneable{
      *          if c is null, the method uses the natural ordering to sort the list
      */
     public void sort(Comparator<? super E> c){
-        // Not implemented
+        for (int i = 1; i < size; i++) {
+            E currVal = elements[i];
+            int prevIndex = i-1;
+            int comparisonVal = -1;
+            while (prevIndex >= 0 && comparisonVal < 0) {
+                E prevVal = elements[prevIndex];
+                if (c == null) 
+                    comparisonVal = ((Comparable) currVal).compareTo(prevVal);
+                else 
+                    comparisonVal = c.compare(currVal, prevVal);
+                if (comparisonVal < 0) {
+                    prevIndex--;
+                }
+            }
+            remove(elements[i]);
+            add(prevIndex + 1, currVal);
+        }
     }
 
     /**
