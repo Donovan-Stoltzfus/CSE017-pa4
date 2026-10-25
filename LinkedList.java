@@ -357,6 +357,8 @@ public class LinkedList<E> implements List<E>, Cloneable{
         if (head == null)
             throw new NoSuchElementException();
         E val = head.value;
+        Node next = head.next;
+        next.previous = null;
         head = head.next;
         if (head == null) // removed the only node in the LL
             tail = null;
@@ -374,13 +376,10 @@ public class LinkedList<E> implements List<E>, Cloneable{
             throw new NoSuchElementException();
         if (size == 1)
             return removeFirst();
-        Node current = head;
-        while(current.next != tail){
-            current = current.next;
-        }
-        current.next = null;
+        Node newTail = tail.previous;
+        newTail.next = null;
         E value = tail.value;
-        tail = current;
+        tail = newTail;
         size--;
         return value;
     }
@@ -413,8 +412,17 @@ public class LinkedList<E> implements List<E>, Cloneable{
      * @throws NullPointerException if the given element is null
      */
     public E set(int index, E newVal){
-        // Not implemented
-        return null;
+        if (index < 0 || index >= size)
+            throw new IndexOutOfBoundsException("Must be valid index");
+        Node current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+        if (current.value == null)
+            throw new NullPointerException("Element is null");
+        E oldVal = current.value;
+        current.value = newVal;
+        return oldVal;
     }
 
     /**
