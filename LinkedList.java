@@ -344,7 +344,9 @@ public class LinkedList<E> implements List<E>, Cloneable{
             removeLast();
             return true;
         }
+        Node afterRemoved = current.next;
         previous.next = current.next;
+        afterRemoved.previous = current.previous;
         size--;
         return true;
     }
@@ -399,10 +401,10 @@ public class LinkedList<E> implements List<E>, Cloneable{
             return removeFirst();
         Node newTail = tail.previous;
         newTail.next = null;
-        E value = tail.value;
+        E removedVal = tail.value;
         tail = newTail;
         size--;
-        return value;
+        return removedVal;
     }
 
     /**
