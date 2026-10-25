@@ -16,9 +16,11 @@ public class LinkedList<E> implements List<E>, Cloneable{
     private class Node {
         E value;
         Node next;
+        Node previous;
         Node(E initialValue) {
             value = initialValue;
             next = null;
+            previous = null;
         }
     }
     /**
@@ -66,7 +68,9 @@ public class LinkedList<E> implements List<E>, Cloneable{
             }
             Node newNode = new Node(item);
             previous.next = newNode;
+            current.previous = newNode;
             newNode.next = current;
+            newNode.previous = previous;
             size++;
         }
     }
@@ -93,6 +97,7 @@ public class LinkedList<E> implements List<E>, Cloneable{
         }
         else {
             newNode.next = head;
+            head.previous = newNode;
             head = newNode;
         }
         size++;
@@ -110,6 +115,7 @@ public class LinkedList<E> implements List<E>, Cloneable{
         }
         else{
             tail.next = newNode;
+            newNode.previous = tail;
             tail = newNode;
         }
         size++;
