@@ -166,6 +166,9 @@ public class ArrayList<E> implements List<E>, Cloneable{
     public boolean equals(Object o){
         if (o instanceof List) {
             for (int i = 0; i < size; i++) {
+                List<E> other = (List<E>) o;
+                if (other.size() != size)
+                    return false;
                 if (!((List) o).get(i).equals(get(i))) {
                     return false;
                 }
@@ -313,11 +316,9 @@ public class ArrayList<E> implements List<E>, Cloneable{
      */
     public boolean removeAll(Collection<?> c){
         boolean listChanged = false;
-        Iterator iter = c.iterator();
-        while (iter.hasNext()) {
-            E element = (E) iter.next();
-            if (contains(element)) {
-                remove(element);
+        for (int i = size-1; i >= 0; i--) {
+            if (c.contains(elements[i])) {
+                remove(elements[i]);
                 listChanged = true;
             }
         }
@@ -424,7 +425,7 @@ public class ArrayList<E> implements List<E>, Cloneable{
                     prevIndex--;
                 }
             }
-            remove(elements[i]);
+            remove(i);
             add(prevIndex + 1, currVal);
         }
     }
