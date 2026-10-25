@@ -135,8 +135,13 @@ public class LinkedList<E> implements List<E>, Cloneable{
      * @return a deep copy of this list
      */
     public Object clone(){
-        // Not implemented
-        return null;
+        Iterator iter = iterator();
+        LinkedList<E> newList = new LinkedList<>();
+        while (iter.hasNext()) {
+            E element = (E) iter.next();
+            newList.addLast(element);
+        }
+        return newList;
     }
 
     /**
