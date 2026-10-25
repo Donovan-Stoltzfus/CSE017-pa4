@@ -141,11 +141,12 @@ public class LinkedList<E> implements List<E>, Cloneable{
      * @return a deep copy of this list
      */
     public Object clone(){
-        Iterator iter = iterator();
+        Node current = head;
         LinkedList<E> newList = new LinkedList<>();
-        while (iter.hasNext()) {
-            E element = (E) iter.next();
-            newList.addLast(element);
+        while (current != null) {
+            E valueCopy = current.value;
+            newList.addLast(valueCopy);
+            current = current.next;
         }
         return newList;
     }
@@ -188,7 +189,14 @@ public class LinkedList<E> implements List<E>, Cloneable{
      * @return true if this list is equal to the given object, false otherwise
      */
     public boolean equals(Object o){
-        // Not implemented
+        if (o instanceof List) {
+            for (int i = 0; i < size; i++) {
+                if (!((List) o).get(i).equals(get(i))) {
+                    return false;
+                }
+            }
+            return true;
+        }
         return false;
     }
 
