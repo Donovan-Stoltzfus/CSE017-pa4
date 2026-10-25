@@ -60,7 +60,7 @@ public class ArrayList<E> implements List<E>, Cloneable{
         boolean isChanged = false;
         while (iter.hasNext()) {
             E nextElement = (E) iter.next();
-            this.add(nextElement);
+            add(nextElement);
             isChanged = true;
         }
         return isChanged;
@@ -107,7 +107,7 @@ public class ArrayList<E> implements List<E>, Cloneable{
     public Object clone(){
         ArrayList<E> newArrayList = new ArrayList(size);
         for (int i = 0; i < size; i++) {
-            newArrayList.add(this.get(i));
+            newArrayList.add(get(i));
         }
         return newArrayList;
     }
@@ -137,7 +137,7 @@ public class ArrayList<E> implements List<E>, Cloneable{
         Iterator iter = c.iterator();
         while (iter.hasNext()) {
             E element = (E) iter.next();
-            if (!this.contains(element)) {
+            if (!contains(element)) {
                 return false;
             }
         }
@@ -166,7 +166,7 @@ public class ArrayList<E> implements List<E>, Cloneable{
     public boolean equals(Object o){
         if (o instanceof List) {
             for (int i = 0; i < size; i++) {
-                if (!((List) o).get(i).equals(this.get(i))) {
+                if (!((List) o).get(i).equals(get(i))) {
                     return false;
                 }
             }
@@ -217,7 +217,7 @@ public class ArrayList<E> implements List<E>, Cloneable{
      */
     public int indexOf(Object o){
         for (int i = 0; i < size; i++) {
-            if (this.get(i).equals(o)) {
+            if (get(i).equals(o)) {
                 return i;
             }
         }
@@ -249,7 +249,7 @@ public class ArrayList<E> implements List<E>, Cloneable{
      */
     public int lastIndexOf(Object o){
         for (int i = size-1; i >= 0; i--) {
-            if (this.get(i).equals(o)) {
+            if (get(i).equals(o)) {
                 return i;
             }
         }
@@ -316,8 +316,8 @@ public class ArrayList<E> implements List<E>, Cloneable{
         Iterator iter = c.iterator();
         while (iter.hasNext()) {
             E element = (E) iter.next();
-            if (this.contains(element)) {
-                this.remove(element);
+            if (contains(element)) {
+                remove(element);
                 listChanged = true;
             }
         }
@@ -356,13 +356,13 @@ public class ArrayList<E> implements List<E>, Cloneable{
             Iterator iter = c.iterator();
             boolean shouldRemove = true;
             while (iter.hasNext()) {
-                if (iter.next() == this.get(i)) {
+                if (iter.next() == get(i)) {
                     shouldRemove = false;
                     break;
                 }
             }
             if (shouldRemove) {
-                this.remove(i);
+                remove(i);
                 isChanged = true;
             }
         }
@@ -376,7 +376,7 @@ public class ArrayList<E> implements List<E>, Cloneable{
     public List<E> reversed(){
         ArrayList<E> newList = new ArrayList(size);
         for (int i = size-1; i >= 0; i--) {
-            newList.add(this.get(i));
+            newList.add(get(i));
         }
         return newList;
     }
@@ -455,7 +455,7 @@ public class ArrayList<E> implements List<E>, Cloneable{
     public Object[] toArray(){
         Object[] newArray = new Object[size];
         for (int i = 0; i < size; i++) {
-            newArray[i] = this.get(i);
+            newArray[i] = get(i);
         }
         return newArray;
     }
