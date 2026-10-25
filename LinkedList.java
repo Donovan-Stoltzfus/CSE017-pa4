@@ -81,8 +81,14 @@ public class LinkedList<E> implements List<E>, Cloneable{
      * @return true if this list changed as a result of the call
      */
     public boolean addAll(Collection<? extends E> c){
-        // Not implemented
-        return true;
+        Iterator iter = c.iterator();
+        boolean isChanged = false;
+        while (iter.hasNext()) {
+            E element = (E) iter.next();
+            addLast(element);
+            isChanged = true;
+        }
+        return isChanged;
     }
 
     /**
@@ -166,7 +172,13 @@ public class LinkedList<E> implements List<E>, Cloneable{
      * @return true if this list contains all of the elements in the given collection
      */
     public boolean containsAll(Collection<?> c){
-        // Not implemented
+        Iterator iter = c.iterator();
+        while (iter.hasNext()) {
+            E element = (E) iter.next();
+            if (!contains(element)) {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -343,8 +355,17 @@ public class LinkedList<E> implements List<E>, Cloneable{
      * @return true if this list changed as a result of the call
      */
     public boolean removeAll(Collection<?> c){
-        // Not implemented
-        return true;
+        Node current = head;
+        boolean listChanged = false;
+        while (current != null) {
+            E currVal = current.value;
+            if (c.contains(currVal)) {
+                remove(currVal);
+                listChanged = true;
+            }
+            current = current.next;
+        }
+        return listChanged;
     }
 
     /**
@@ -390,8 +411,16 @@ public class LinkedList<E> implements List<E>, Cloneable{
      * @return true if this list changed as a result of the call
      */
     public boolean retainAll(Collection<?> c){
-        // Not implemented
-        return true;
+        Node current = head;
+        boolean listChanged = false;
+        while (current != null) {
+            if (!c.contains(current.value)) {
+                remove(current.value);
+                listChanged = true;
+            }
+            current = current.next;
+        }
+        return listChanged;
     }
 
     /**
