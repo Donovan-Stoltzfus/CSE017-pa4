@@ -164,9 +164,9 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @return true if this list is equal to the given object, false otherwise
      */
     public boolean equals(Object o){
-        if (o instanceof ArrayList) {
+        if (o instanceof List) {
             for (int i = 0; i < size; i++) {
-                if (!((ArrayList) o).get(i).equals(this.get(i))) {
+                if (!((List) o).get(i).equals(this.get(i))) {
                     return false;
                 }
             }
@@ -192,7 +192,9 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @throws NoSuchElementException if this list is empty
      */
     public E getFirst() {
-		return get(0);
+		if (size == 0)
+            throw new NoSuchElementException();
+        return get(0);
     }
 
     /**
@@ -201,6 +203,8 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @throws NoSuchElementException if this list is empty
      */
     public E getLast() {
+        if (size == 0)
+            throw new NoSuchElementException();
         return get(size-1);
     }
 
@@ -326,6 +330,8 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @throws NoSuchElementException if this list is empty
      */
     public E removeFirst(){
+        if (size == 0)
+            throw new NoSuchElementException();
         return remove(0);
     }
     /**
@@ -334,6 +340,8 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @throws NoSuchElementException if this list is empty
      */
     public E removeLast(){
+        if (size == 0)
+            throw new NoSuchElementException();
         return remove(size-1);
     }
 
@@ -422,7 +430,7 @@ public class ArrayList<E> implements List<E>, Cloneable{
     }
 
     /**
-     * Method to extract a sublist form this list
+     * Method to extract a sublist from this list
      * @param from the index at which the sublist should start (inclusive)
      * @param to the index at which the sublit should stop (exclusive)
      * @return a copy of the specified range within this list
@@ -431,8 +439,13 @@ public class ArrayList<E> implements List<E>, Cloneable{
      *         (from < 0 || to > size || from > to)
      */
     public List<E> subList(int from, int to){
-        // Not implemented
-        return null;
+        if (from < 0 || to > size || from > to)
+            throw new ArrayIndexOutOfBoundsException("Index out of bounds in subList");
+        ArrayList<E> newList = new ArrayList<>(to - from);
+        for (int i = from; i < to; i++) {
+            newList.add(get(i));
+        }
+        return newList;
     }
 
     /**
@@ -440,8 +453,11 @@ public class ArrayList<E> implements List<E>, Cloneable{
      * @return an array of type Object that contains the elements from this list
      */
     public Object[] toArray(){
-        // Not implemented
-        return null;
+        Object[] newArray = new Object[size];
+        for (int i = 0; i < size; i++) {
+            newArray[i] = this.get(i);
+        }
+        return newArray;
     }
 
     /**
