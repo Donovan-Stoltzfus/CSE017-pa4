@@ -238,8 +238,16 @@ public class LinkedList<E> implements List<E>, Cloneable{
      * @throws ClassCastException if the type of the given object is not compatible with this list's type
      * @throws NullPointerException if the given object is null
      */
-    public int indexOf(Object o){
-        // Not implemented
+    public int indexOf(Object o) throws ClassCastException{
+        if (o == null)
+            throw new NullPointerException("Object cannot be null");
+        Node current = head;
+        for (int i = 0; i < size; i++) {
+            if (current.value.equals(o)) {
+                return i;
+            }
+            current = current.next;
+        }
         return -1;
     }
 
@@ -266,8 +274,16 @@ public class LinkedList<E> implements List<E>, Cloneable{
      * @throws ClassCastException if the type of the given object is not compatible with this list's type
      * @throws NullPointerException if the given object is null
      */
-    public int lastIndexOf(Object o){
-        // Not implemented
+    public int lastIndexOf(Object o) throws NullPointerException{
+        if (o == null)
+            throw new NullPointerException("Object cannot be null");
+        Node current = tail;
+        for (int i = size-1; i >= 0; i--) {
+            if (current.value.equals(o)) {
+                return i;
+            }
+            current = current.previous;
+        }
         return -1;
     }
 
