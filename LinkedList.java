@@ -610,7 +610,7 @@ public class LinkedList<E> implements List<E>, Cloneable{
             }
             previous = current;
             current = current.next;
-            return current.value;
+            return previous.value;
         }
         /**
          * checks if the iterator has a previous element in the list
