@@ -454,8 +454,13 @@ public class LinkedList<E> implements List<E>, Cloneable{
      * @return a reversed-ordered copy of this list
      */
     public List<E> reversed(){
-      // Not implemented
-      return null;
+        LinkedList<E> newList = new LinkedList<>();
+        Node current = head;
+        while (current != null) {
+            newList.addFirst(current.value);
+            current = current.next;
+        }
+        return newList;
     }
 
     /**
@@ -548,8 +553,19 @@ public class LinkedList<E> implements List<E>, Cloneable{
      *         (from < 0 || to > size || from > to)
      */
     public List<E> subList(int from, int to){
-      // Not implemented
-      return null;
+        if (from < 0 || to > size || from > to)
+            throw new ArrayIndexOutOfBoundsException("Index out of bounds in subList");
+        LinkedList<E> newList = new LinkedList<>();
+        Node firstNode = head;
+        for (int i = 0; i < from; i++) {
+            firstNode = firstNode.next;
+        }
+        Node current = firstNode;
+        for (int i = from; i < to; i++) {
+            newList.addLast(current.value);
+            current = current.next;
+        }
+        return newList;
     }
     
     
@@ -558,8 +574,13 @@ public class LinkedList<E> implements List<E>, Cloneable{
      * @return an array of type Object that contains the elements from this list
      */
     public Object[] toArray(){
-        // Not implemented
-        return null;
+        Object[] array = new Object[size];
+        Node current = head;
+        for (int i = 0; i < size; i++) {
+            array[i] = current.value;
+            current = current.next;
+        }
+        return array;
     }
 
     /**
