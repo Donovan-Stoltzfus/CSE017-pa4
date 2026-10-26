@@ -190,6 +190,9 @@ public class LinkedList<E> implements List<E>, Cloneable{
      */
     public boolean equals(Object o){
         if (o instanceof List) {
+            List<E> other = (List<E>) o;
+            if (other.size() != size)
+                return false;
             for (int i = 0; i < size; i++) {
                 if (!((List) o).get(i).equals(get(i))) {
                     return false;
@@ -403,12 +406,16 @@ public class LinkedList<E> implements List<E>, Cloneable{
     public E removeFirst() {
         if (head == null)
             throw new NoSuchElementException();
+        if (size == 1) {
+            E value = head.value;
+            head = tail = null;
+            size--;
+            return value;
+        }
         E val = head.value;
         Node next = head.next;
         next.previous = null;
         head = head.next;
-        if (head == null) // removed the only node in the LL
-            tail = null;
         size--;
         return val;
     }
