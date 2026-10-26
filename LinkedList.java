@@ -208,7 +208,7 @@ public class LinkedList<E> implements List<E>, Cloneable{
      */
     public E get(int index){
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
+            throw new ArrayIndexOutOfBoundsException("Index out of bounds");
         }
         Node current = head;
         for (int i = 0; i < index; i++) {
@@ -323,7 +323,7 @@ public class LinkedList<E> implements List<E>, Cloneable{
      */
     public E remove(int index){
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
+            throw new ArrayIndexOutOfBoundsException();
         }
         if (index == 0) {
             removeFirst();
@@ -468,7 +468,7 @@ public class LinkedList<E> implements List<E>, Cloneable{
      */
     public E set(int index, E newVal){
         if (index < 0 || index >= size)
-            throw new IndexOutOfBoundsException("Must be valid index");
+            throw new ArrayIndexOutOfBoundsException("Must be valid index");
         Node current = head;
         for (int i = 0; i < index; i++) {
             current = current.next;
