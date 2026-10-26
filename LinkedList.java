@@ -494,7 +494,48 @@ public class LinkedList<E> implements List<E>, Cloneable{
      *          if c is null, the method uses the natural ordering to sort the list
      */
     public void sort(Comparator<? super E> c){
-        // Not implemented
+        if (size < 2) {
+            return;
+        }
+        Node current = head.next;
+        while (current != null) {
+            Node nextNode = current.next;
+            Node sortedPrev = current.previous;
+            int comparisonVal;
+            while (sortedPrev != null) {
+                if (c == null)
+                    comparisonVal = ((Comparable) current.value).compareTo(sortedPrev.value);
+                else
+                    comparisonVal = c.compare(current.value, sortedPrev.value);
+                if (comparisonVal >= 0) {
+                    break;
+                }
+                sortedPrev = sortedPrev.previous;
+            }
+            if (sortedPrev == current.previous) {
+                current = nextNode;
+                continue;
+            }
+            current.previous.next = current.next;
+            if (current.next != null) {
+                current.next.previous = current.previous;
+            } else {
+                tail = current;
+            }
+            if (sortedPrev == null) {
+                current.previous = null;
+                current.next = head;
+                head.previous = current;
+                head = current;
+            } else {
+                Node sortedAfter = sortedPrev.next;
+                sortedAfter.previous = current;
+                sortedPrev.next = current;
+                current.next = sortedAfter;
+                current.previous = sortedPrev;
+            }
+            current = nextNode;
+        }
     }
     
     /**
